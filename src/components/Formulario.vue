@@ -6,7 +6,7 @@
           <v-card-text>  
             <h2>{{pregunta.enunciado}}</h2>
             <v-radio-group v-model='pregunta.respuesta'>
-              <v-radio v-for="(alternativa, index) in pregunta.alternativas" :key=alternativa :label=alternativa :value='[index, alternativa]' color="primary"></v-radio>
+              <v-radio v-for="(alternativa, index) in pregunta.alternativas" :key=alternativa :label=alternativa :value='[index, pregunta.enunciado, alternativa]' color="primary"></v-radio>
             </v-radio-group>
           </v-card-text>
         </v-card>
@@ -29,7 +29,7 @@ class Pregunta {
   constructor(enunciado, alternativas) {
     this.enunciado = enunciado;
     this.alternativas = alternativas;
-    this.respuesta = ['', ''];
+    this.respuesta = ['', '', ''];
   }
 }
 
@@ -43,13 +43,12 @@ export default {
         new Pregunta('¿Siente Ud. somnolencia durante el día?', ['Nunca', 'Rara vez', 'Frecuentemente']),
         new Pregunta('¿Tiene Ud. ronquidos durante el sueño?', ['Nunca', 'Rara vez', 'Frecuentemente']),
         new Pregunta('¿Presenta mal humor e irritabilidad?', ['Nunca', 'Rara vez', 'Frecuentemente']),
-      ],
-      x: []
+      ]
     }
   },
   methods: {
     enviarDatosFormulario() {
-      this.x = this.preguntas.map(pregunta => pregunta.respuesta[0])
+      console.log(this.preguntas.map(pregunta => pregunta.respuesta[0]))
     }
   },
 }

@@ -1,25 +1,19 @@
-#!/usr/bin/env sh
-
-# abort on errors
 set -e
 
-# build
+# Deploy Project
+git init
+# git add README.md
+git add .
+git commit -m 'deploy project'
+# git remote add origin https://github.com/mitsuoysharag/sddsad.git
+git push -u origin master
+
+# Deploy Page
 npm run build
-
-# navigate into the build output directory
 cd dist
-
-# if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
-
 git init
 git add -A
-git commit -m 'deploy'
-
-# if you are deploying to https://<USERNAME>.github.io
-# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
-
-# if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:mitsuoysharag/UNMSM_SD_Pilar_de_Descanso.git master:gh-pages
+git commit -m 'deploy page'
+git push -f https://github.com/mitsuoysharag/UNMSM_SD_Pilar_de_Descanso.git  master:gh-pages
 
 cd -
