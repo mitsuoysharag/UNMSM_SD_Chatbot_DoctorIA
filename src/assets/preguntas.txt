@@ -1,0 +1,29 @@
+Considera que su descanso es: 
+a	Prolongado y reparador
+b	Intermitente o insomnio
+c	Insuficiente
+
+Sus horas de descanso son:
+a	8 o mas horas
+b	De 6 a 7 horas
+c	Menos de 6 horas
+
+¿Tiene Ud. ronquidos durante el sueño?	
+a	Nunca
+b	Rara vez
+c	Frecuentemente
+
+¿Siente Ud. estrés al dormir?
+a	Nunca
+b	Rara vez
+c	Frecuentemente
+
+¿Siente Ud. somnolencia durante el día?
+a	Nunca
+b	Rara vez
+c	Frecuentemente
+
+¿Presenta mal humor o irritabilidad?
+a	Nunca
+b	Rara vez
+c	Frecuentemente
