@@ -1,6 +1,5 @@
 set -e
 
-# Deploy Project
 git init
 # git add README.md
 git add .
