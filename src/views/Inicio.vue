@@ -30,7 +30,7 @@ export default {
     return {
       totalPreguntas: 11,
       resultados: [
-        new Resultado(1, 0)
+        new Resultado(1, Math.round(Math.random()*12) - 1)
       ]
     }
   },
