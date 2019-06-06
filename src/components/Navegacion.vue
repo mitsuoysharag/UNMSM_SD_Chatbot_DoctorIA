@@ -2,11 +2,11 @@
 <div>
   <v-toolbar app>
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-    <v-toolbar-title class="headline text-uppercase">
-      <span>Proyecto Salud</span>
+    <v-toolbar-title class=" text-uppercase">
+      <h3>Proyecto Salud</h3>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-toolbar-items>
+    <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat @click="redirect('/')">Cerrar Sesión</v-btn>
     </v-toolbar-items>
   </v-toolbar>

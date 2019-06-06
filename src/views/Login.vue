@@ -1,6 +1,7 @@
 <template>
-  <v-layout class="componente-login" align-center column justify-center>
-      <v-card width="500" class="px-3">
+  <v-layout class="componente-login" align-center justify-center>
+    <v-flex xs12 sm7 md5 lg3 px-2>
+      <v-card class="px-3">
         <v-form ref="form" action="formulario">
         <v-card-text>
           <h3 class="headline mt-2 mb-4 text-xs-center">Iniciar Sesión</h3>
@@ -20,6 +21,7 @@
         </v-card-actions>
         </v-form>
       </v-card>
+    </v-flex>
   </v-layout>
 </template>
 
