@@ -12,15 +12,28 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-divider></v-divider>
+    <v-layout wrap>
+      <v-flex xs12 md6 v-for="pregunta in preguntas2" :key=pregunta.enunciado>
+        <v-card elevation=6>
+          <v-card-text>  
+            <h2>{{pregunta.enunciado}}</h2>
+            <v-radio-group v-model='pregunta.respuesta'>
+              <v-radio v-for="(alternativa, index) in pregunta.alternativas" :key=alternativa :label=alternativa :value='[index, pregunta.enunciado, alternativa]' color="primary"></v-radio>
+            </v-radio-group>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
 
     <div class="text-xs-center mt-3">
       <v-btn color="info" @click='enviarDatosFormulario'>Enviar</v-btn>
     </div>
 
-    <div>
+    <!--div>
       <h3>Respuestas:</h3>
       <span class='mr-2' v-for='pregunta in preguntas' :key=pregunta.enunciado>{{pregunta.respuesta}}<br></span>
-    </div>
+    </div-->
   </v-container>
 </template>
 
@@ -43,6 +56,13 @@ export default {
         new Pregunta('¿Siente Ud. somnolencia durante el día?', ['Nunca', 'Rara vez', 'Frecuentemente']),
         new Pregunta('¿Tiene Ud. ronquidos durante el sueño?', ['Nunca', 'Rara vez', 'Frecuentemente']),
         new Pregunta('¿Presenta mal humor e irritabilidad?', ['Nunca', 'Rara vez', 'Frecuentemente']),
+      ],
+      preguntas2: [
+        new Pregunta('¿Últimamente, ha sentido mucha ansiedad?', ['Si', 'No']),
+        new Pregunta('¿Sufre de enfermedades respiratorias?', ['Si', 'No']),
+        new Pregunta('¿Usa el movil/PC antes de dormir?', ['Si', 'No']),
+        new Pregunta('¿Tiene problemas en el trabajo por sobresueño?', ['Si', 'No']),
+        new Pregunta('¿Se siente adormilado durante el día aunque haya dormido toda la noche?', ['Si', 'No']),
       ]
     }
   },

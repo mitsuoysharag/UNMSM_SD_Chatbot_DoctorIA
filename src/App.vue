@@ -23,10 +23,6 @@ export default {
 </script>
 
 <style>
-#app {
-  
-}
-
 h2 {
   color: #4e4e4e
 }
