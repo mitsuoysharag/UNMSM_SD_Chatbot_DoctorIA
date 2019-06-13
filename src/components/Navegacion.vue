@@ -3,7 +3,7 @@
   <v-toolbar app>
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     <v-toolbar-title class=" text-uppercase">
-      <h3>Proyecto Salud</h3>
+      <h3>Chat Salud</h3>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -49,7 +49,8 @@ export default {
         drawer: null,
         items: [
           { title: 'Inicio', icon: 'home', redirect: 'inicio'},
-          { title: 'Formulario', icon: 'question_answer', redirect: 'formulario'},
+          { title: 'Formulario', icon: 'receipt', redirect: 'formulario'},
+          { title: 'Chat', icon: 'question_answer', redirect: 'chat'},
           { title: 'Cerrar Sesión', icon: 'exit_to_app', redirect: '/'}
         ]
       }

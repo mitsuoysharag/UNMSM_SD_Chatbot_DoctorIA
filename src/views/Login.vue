@@ -3,7 +3,7 @@
     <div class="componente-color"></div>
     <v-flex xs12 sm7 md5 lg3 px-2>
       <v-card class="px-3">
-        <v-form ref="form" action="formulario">
+        <v-form ref="form">
         <v-card-text class="pb-2">
           <v-text-field
             v-model="usuario"
@@ -17,7 +17,7 @@
           ></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn class="mb-1" @click='iniciarSesion' block flat color="blue" >Iniciar Sesión</v-btn>
+          <v-btn class="mb-1" @click='iniciarSesion' block flat color="blue" type="submit">Iniciar Sesión</v-btn>
         </v-card-actions>
         </v-form>
       </v-card>

@@ -7,7 +7,7 @@
           <v-flex sx12 md6 lg4 v-for="resultado in resultados" :key=resultado.id>
             <v-card elevation=3>
               <v-card-text>  
-                <h2 class="pb-3">Pilar de Descanso</h2>
+                <h2 class="pb-3">Descanso</h2>
                 <p>Completado {{resultado.completado}}/{{totalPreguntas}}</p>
                 <v-progress-linear color="success" height="5" :value="porcentajeCompletado(resultado.completado)"></v-progress-linear>
               </v-card-text>
@@ -28,9 +28,9 @@ import Navegacion from '../components/Navegacion'
 export default {
   data () {
     return {
-      totalPreguntas: 11,
+      totalPreguntas: 6,
       resultados: [
-        new Resultado(1, Math.round(Math.random()*12) - 1)
+        new Resultado(1, Math.round(Math.random()*7))
       ]
     }
   },

@@ -40,20 +40,19 @@ export default {
         new Pregunta('Sus horas de descanso son:', ['8 o más horas', 'De 6 a 7 horas', 'Menos de 6 horas']),
         new Pregunta('¿Siente Ud. somnolencia durante el día?', ['Nunca', 'Rara vez', 'Frecuentemente']),
         new Pregunta('¿Tiene Ud. ronquidos durante el sueño?', ['Nunca', 'Rara vez', 'Frecuentemente']),
-        new Pregunta('¿Presenta mal humor e irritabilidad?', ['Nunca', 'Rara vez', 'Frecuentemente']),
-      
-        new Pregunta('¿Últimamente, ha sentido mucha ansiedad?', ['Si', 'No']),
+        new Pregunta('¿Presenta mal humor e irritabilidad?', ['Nunca', 'Rara vez', 'Frecuentemente'])
+        /*new Pregunta('¿Últimamente, ha sentido mucha ansiedad?', ['Si', 'No']),
         new Pregunta('¿Sufre de enfermedades respiratorias?', ['Si', 'No']),
         new Pregunta('¿Usa el movil/PC antes de dormir?', ['Si', 'No']),
         new Pregunta('¿Tiene problemas en el trabajo por sobresueño?', ['Si', 'No']),
-        new Pregunta('¿Se siente adormilado durante el día aunque haya dormido toda la noche?', ['Si', 'No']),
+        new Pregunta('¿Se siente adormilado durante el día aunque haya dormido toda la noche?', ['Si', 'No']),*/
       ]
     }
   },
   methods: {
     enviarDatosFormulario() {
       console.log(this.preguntas.map(pregunta => pregunta.respuesta[0]))
-      this.$router.push('inicio')
+      this.$router.push('chat')
     }
   },
   components: {

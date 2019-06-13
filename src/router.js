@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Login from './views/Login.vue'
-import Inicio from './views/Inicio.vue'
-import Formulario from './views/Formulario.vue'
-
 Vue.use(Router)
 
 export default new Router({
@@ -14,17 +10,22 @@ export default new Router({
     { 
       path: '/',
       name: 'login',
-      component: Login
+      component: () => import('./views/Login.vue')
     },
     { 
       path: '/inicio',
       name: 'inicio',
-      component: Inicio
+      component: () => import('./views/Inicio.vue')
     },
     { 
       path: '/formulario',
       name: 'formulario',
-      component: Formulario
-    }
+      component: () => import('./views/Formulario.vue')
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: () => import('./views/Chat.vue')
+    },
   ]
 })
