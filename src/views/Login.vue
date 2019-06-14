@@ -3,7 +3,7 @@
     <div class="componente-color"></div>
     <v-flex xs12 sm7 md5 lg3 px-2>
       <v-card class="px-3">
-        <v-form ref="form">
+        <v-form ref="form" @submit.prevent="iniciarSesion">
         <v-card-text class="pb-2">
           <v-text-field
             v-model="usuario"
