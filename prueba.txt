@@ -1,0 +1,40 @@
+hola amigo
+['hola como estas', 'dime en que puedo ayudarte', 'estoy para servirte', 'en que te puedo ayudar']
+por que es importante dormir? :)
+['despejar tu mente, recargar energias']
+ah ok
+['No entendí tu consulta.']
+que eres un bot?
+['soy un chatbot programado para ayudarte']
+ayudarme a que???
+['identificar problemas de descanso']
+que enfermedades puedes detectar
+['diabetes, hipertension arterial, obesisdad, depresion, ansiedad', 'dime tus sintomas']
+como se si tengo diabetes?
+['Empezemos por un cuestionario, te parece bien?']
+ok dale
+¿Has notado que últimamente te da más sed?
+si
+¿Sientes más apetito que antes?
+no
+¿Tienes fatiga?
+no
+¿Tienes visión borrosa?
+no
+¿Te han salido llagas en el cuerpo?
+si
+¿Tienes sobrepeso?
+no
+¿Sueles hacer a menudo actividad física?
+no
+¿Sueles hacer a menudo algún deporte?
+si
+¿Tienes zonas oscuras en tu piel?
+si
+Resultados: 4
+muchas gracias :)
+['Feliz de poder ayudarte :).']
+nos vemos, chauuu
+['Feliz de poder ayudarte :).']
+nos vemos adios
+['hasta pronto', 'nos vemos luego', 'espero haberte sido util']

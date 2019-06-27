@@ -3,7 +3,7 @@
   <v-toolbar app>
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     <v-toolbar-title class=" text-uppercase">
-      <h3>Chat Salud</h3>
+      <h3>DOCTOR IA</h3>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">

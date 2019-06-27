@@ -1,9 +1,9 @@
 <template>
   <v-content class="chat-vista">
     <Navegacion/>
-    <v-container fluid grid-list-xl style="height: 100%">
+    <v-container grid-list-xl style="height: 100%">
       <v-layout justify-center wrap style="height: 100%">
-        <v-flex xs12 md5 style="height: 100%">
+        <v-flex xs12 md6 style="height: 100%">
           <v-card class="elevation-6 fill-height">
             <div class="chat-componente" style="height: 100%">
               <v-container id="chat-ventana">
@@ -11,7 +11,6 @@
                   <v-flex v-for="(mensaje, index) in mensajes" :key="index">
                     <v-card
                       v-ripple
-                      @click="accionMensajeRecurso(mensaje.recurso)"
                       class="chat-mensaje elevation-4"
                       :class="{ 'chat-mensaje-0':mensaje.autor==0, 'chat-mensaje-1':mensaje.autor==1 }"
                     >
@@ -43,46 +42,74 @@
           </v-card>
         </v-flex>
 
-        <v-flex v-if="recurso_estado != 0" xs12 md7 style="height: 100%">
-          <v-card class="elevation-6 fill-height">
-            <div
-              class="chat-recurso"
-              :class="{ 'chat-recurso-maximizado':recurso_maximizado }"
-              style="height: 100%"
-            >
-              <embed
-                v-if="recurso && recurso.tipo==0"
-                :src="recurso.enlace"
-                width="100%"
-                height="100%"
-              >
-              <iframe
-                v-else-if="recurso && recurso.tipo==1"
-                :src="recurso.enlace"
-                width="100%"
-                height="100%"
-              ></iframe>
-              <div v-else style="margin: auto">
-                <v-progress-circular :size="70" :width="7" color="primary" indeterminate></v-progress-circular>
+        <v-scroll-x-transition>
+          <v-flex v-if="mostrar_resultado" xs12 md6 style="height: 100%">
+            <v-card class="elevation-6 fill-height">
+              <div class="chat-estadistica" style="height: 100%">
+                <div class="px-5 pt-5">
+                  <h2 class="text-xs-center">Resultados del cuestionario</h2>
+                  <div
+                    style="display: flex; flex-direction: column; justify-content: center; font-size: 14px"
+                    class="mx-3"
+                  >
+                    <v-progress-circular
+                      :rotate="360"
+                      :size="150"
+                      :width="15"
+                      :value="cuestionario_diabetes"
+                      color="teal"
+                      style="margin: 20px auto"
+                    >
+                      <h1>{{ cuestionario_diabetes }}</h1>
+                    </v-progress-circular>
+                    <v-scroll-x-transition>
+                      <div v-if="mostrar_resultado_detalle" class="text-xs-center">
+                        <span>
+                          Tu puntuación ha sido de
+                          <strong>{{cuestionario_diabetes}}</strong>.
+                        </span>
+                        <br>
+                        <span>
+                          Usted tiene un
+                          <strong>riesgo {{nivel_riesgo}}</strong> de desarrollar diabetes.
+                        </span>
+                        <v-divider class="mt-4 mb-3"></v-divider>
+                      </div>
+                    </v-scroll-x-transition>
+                  </div>
+                  <v-scroll-x-transition>
+                    <div v-if="mostrar_resultado_detalle_2" style="font-size: 13px">
+                      <p>Aún así, usted podría reducir su riesgo de desarrollar diabetes. Le damos las siguientes recomendaciones:</p>
+                      <ul>
+                        <li>
+                          <p>Haga más actividad física. El ejercicio puede ayudarte a bajar de peso y bajar el azúcar en la sangre</p>
+                        </li>
+                        <li>
+                          <p>Adelgaza los kilos de más. La prevención de la diabetes podría depender del adelgazamiento. Por cada kilo que pierdes, te sorprenderá cuánto mejorará su salud.</p>
+                        </li>
+                        <li>
+                          <p>Consuma mucha fibra, la fibra puede ayudarte a reducir el riesgo de padecer diabetes</p>
+                        </li>
+                        <li>
+                          <p>Evite las dietas de moda y elija opciones más saludables. Incluye en tu plan de alimentación saludable alimentos variados y porciones de tamaño controlado.</p>
+                        </li>
+                      </ul>
+                      <v-divider class="mt-3"></v-divider>
+                    </div>
+                  </v-scroll-x-transition>
+                </div>
+                <div class="px-2 pb-1">
+                  <v-alert
+                    :value="true"
+                    type="info"
+                    outline
+                    style=" font-size: 12px"
+                  >Este cuestionario no puede reemplazar un diagnóstico facultativo. Por este motivo, debería consultar con su médico el resultado obtenido.</v-alert>
+                </div>
               </div>
-              <div class="my-3">
-                <v-btn
-                  fab
-                  dark
-                  small
-                  color="primary"
-                  @click="recurso_maximizado = !recurso_maximizado"
-                >
-                  <v-icon v-if="!recurso_maximizado" dark>fullscreen</v-icon>
-                  <v-icon v-else dark>fullscreen_exit</v-icon>
-                </v-btn>
-                <v-btn fab dark small color="error" @click="recurso_estado = 0">
-                  <v-icon dark>close</v-icon>
-                </v-btn>
-              </div>
-            </div>
-          </v-card>
-        </v-flex>
+            </v-card>
+          </v-flex>
+        </v-scroll-x-transition>
       </v-layout>
     </v-container>
   </v-content>
@@ -90,14 +117,18 @@
 
 <script>
 import Navegacion from "../components/Navegacion";
+import { setTimeout } from "timers";
 export default {
   data() {
     return {
+      mostrar_resultado: false,
+      mostrar_resultado_detalle: false,
+      mostrar_resultado_detalle_2: false,
+
+      cuestionario_diabetes: 33,
+      nivel_riesgo: "bajo",
       enviar_mensaje: true,
       texto: "",
-      recurso: null,
-      recurso_estado: 0, //0: no hay, 1: cargando, 2: hay
-      recurso_maximizado: false,
       mensajes: [
         new Mensaje(1, "Hola."),
         new Mensaje(0, "Hola, en qué puedo ayudarte?"),
@@ -127,18 +158,44 @@ export default {
     responderMensaje() {
       setTimeout(() => {
         this.enviar_mensaje = true;
-        this.mensajes.push(new Mensaje(0, "Esta información te puede ayudar: ..."));
+        this.mensajes.push(
+          new Mensaje(0, "Esta información te puede ayudar: ...")
+        );
         this.scrollDown();
+        this.ocultarResultado();
+        this.mostrarResultado(48);
       }, 1500);
     },
-    accionMensajeRecurso(recurso) {
-      if (recurso !== undefined) {
-        this.recurso = null;
-        this.recurso_estado = 1; //cargando
+    ocultarResultado() {
+      this.cuestionario_diabetes = 0;
+      this.nivel_riesgo = "";
+      this.mostrar_resultado = false;
+      this.mostrar_resultado_detalle = false;
+      this.mostrar_resultado_detalle_2 = false;
+    },
+    mostrarResultado(cuestionario_diabetes) {
+      this.mostrar_resultado = true;
+      this.nivel_riesgo =
+        cuestionario_diabetes > 66
+          ? "alto"
+          : cuestionario_diabetes > 33
+          ? "medio"
+          : "bajo";
+      this.mostrarResultadoAnimacion(0, cuestionario_diabetes);
+    },
+    mostrarResultadoAnimacion(actual, limite) {
+      this.cuestionario_diabetes = actual;
+      if (actual < limite) {
         setTimeout(() => {
-          this.recurso = recurso;
-          this.recurso_estado = 2; //hay
-        }, 500);
+          this.mostrarResultadoAnimacion(actual + 1, limite);
+        }, 10);
+      } else {
+        setTimeout(() => {
+          this.mostrar_resultado_detalle = true;
+        }, 1000);
+        setTimeout(() => {
+          this.mostrar_resultado_detalle_2 = true;
+        }, 2500);
       }
     },
     scrollDown() {
@@ -201,25 +258,10 @@ class Mensaje {
   float: right;
   background: #afdaff !important;
 }
-.chat-recurso {
+.chat-estadistica {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
-}
-.chat-recurso-maximizado {
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding-top: 60px;
-  width: 100%;
-  background: #fff;
-}
-.chat-no-recurso {
-  width: 100%;
-  height: 100%;
-  border-bottom: 1px solid #ccc;
-  overflow-y: auto;
 }
 /*Scrollbar*/
 ::-webkit-scrollbar {

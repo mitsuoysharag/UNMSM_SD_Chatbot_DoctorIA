@@ -14,6 +14,7 @@
             v-model="contraseña"
             :rules="contraseñaRules"
             label="Contraseña"
+            type="password"
           ></v-text-field>
         </v-card-text>
         <v-card-actions>
@@ -31,7 +32,7 @@ export default {
     return {
       usuario: '',
       contraseña: '',
-      usuarioRules: [v => !!v || 'Usuario es requerido'],
+      usuarioRules: [v => !!v || 'Usuario es requeridonpm run'],
       contraseñaRules: [v => !!v || 'Contraseña es requerida'],
     }
   },

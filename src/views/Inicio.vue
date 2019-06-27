@@ -4,12 +4,12 @@
     <v-content>
       <v-container grid-list-xl>
         <v-layout wrap>
-          <v-flex sx12 md6 lg4 v-for="resultado in resultados" :key=resultado.id>
+          <v-flex sx12 md6 lg4>
             <v-card elevation=3>
               <v-card-text>  
-                <h2 class="pb-3">Descanso</h2>
-                <p>Completado {{resultado.completado}}/{{totalPreguntas}}</p>
-                <v-progress-linear color="success" height="5" :value="porcentajeCompletado(resultado.completado)"></v-progress-linear>
+                <h2 class="pb-3">Charla con Doctor IA</h2>
+                <p>Último diagnóstico <strong>{{fecha}}</strong></p>
+                <!-- <v-progress-linear color="success" height="5" :value="porcentajeCompletado(resultado.completado)"></v-progress-linear> -->
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -28,18 +28,12 @@ import Navegacion from '../components/Navegacion'
 export default {
   data () {
     return {
-      totalPreguntas: 6,
-      resultados: [
-        new Resultado(1, Math.round(Math.random()*6))
-      ]
+      fecha: '22/06/2019'
     }
   },
   methods: {
     ingresarFormulario() {
-      this.$router.push('formulario')
-    },
-    porcentajeCompletado(n) {
-      return n*100/this.totalPreguntas
+      this.$router.push('chat')
     }
   },
   components: {

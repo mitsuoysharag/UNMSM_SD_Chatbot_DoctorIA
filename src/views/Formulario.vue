@@ -19,11 +19,6 @@
         <div class="text-xs-center mt-3">
           <v-btn color="info" large @click='enviarDatosFormulario'>Guardar</v-btn>
         </div>
-
-        <!--div>
-          <h3>Respuestas:</h3>
-          <span class='mr-2' v-for='pregunta in preguntas' :key=pregunta.enunciado>{{pregunta.respuesta}}<br></span>
-        </div-->
       </v-container>
     </v-content>
   </div>
