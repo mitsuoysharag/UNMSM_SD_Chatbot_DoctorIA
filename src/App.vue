@@ -12,7 +12,4 @@
 h2 {
   color: #4e4e4e
 }
-body {
-  background: #ccc
-}
 </style>

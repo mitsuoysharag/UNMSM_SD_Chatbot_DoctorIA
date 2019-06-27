@@ -47,7 +47,10 @@
             <v-card class="elevation-6 fill-height">
               <div class="chat-estadistica" style="height: 100%">
                 <div class="px-5 pt-5">
-                  <h2 class="text-xs-center">Resultados del cuestionario</h2>
+                  <p
+                    style="font-size: 22px; font-weight: bold; color: #616161"
+                    class="text-xs-center mb-0"
+                  >Resultados del cuestionario</p>
                   <div
                     style="display: flex; flex-direction: column; justify-content: center; font-size: 14px"
                     class="mx-3"
@@ -57,10 +60,10 @@
                       :size="150"
                       :width="15"
                       :value="cuestionario_diabetes"
-                      color="teal"
+                      :color="cuestionario_color"
                       style="margin: 20px auto"
                     >
-                      <h1>{{ cuestionario_diabetes }}</h1>
+                      <h1>{{ cuestionario_diabetes }}/100</h1>
                     </v-progress-circular>
                     <v-scroll-x-transition>
                       <div v-if="mostrar_resultado_detalle" class="text-xs-center">
@@ -71,7 +74,9 @@
                         <br>
                         <span>
                           Usted tiene un
-                          <strong>riesgo {{nivel_riesgo}}</strong> de desarrollar diabetes.
+                          <strong
+                            :style="{color: cuestionario_color}"
+                          >riesgo {{nivel_riesgo}}</strong> de desarrollar <strong>diabetes</strong>.
                         </span>
                         <v-divider class="mt-4 mb-3"></v-divider>
                       </div>
@@ -79,7 +84,7 @@
                   </div>
                   <v-scroll-x-transition>
                     <div v-if="mostrar_resultado_detalle_2" style="font-size: 13px">
-                      <p>Aún así, usted podría reducir su riesgo de desarrollar diabetes. Le damos las siguientes recomendaciones:</p>
+                      <p>Aún así, usted podría reducir su riesgo de desarrollar <strong>diabetes</strong>. Le damos las siguientes recomendaciones:</p>
                       <ul>
                         <li>
                           <p>Haga más actividad física. El ejercicio puede ayudarte a bajar de peso y bajar el azúcar en la sangre</p>
@@ -94,7 +99,7 @@
                           <p>Evite las dietas de moda y elija opciones más saludables. Incluye en tu plan de alimentación saludable alimentos variados y porciones de tamaño controlado.</p>
                         </li>
                       </ul>
-                      <v-divider class="mt-3"></v-divider>
+                      <v-divider class="my-3"></v-divider>
                     </div>
                   </v-scroll-x-transition>
                 </div>
@@ -125,8 +130,10 @@ export default {
       mostrar_resultado_detalle: false,
       mostrar_resultado_detalle_2: false,
 
-      cuestionario_diabetes: 33,
+      cuestionario_diabetes: 0,
+      cuestionario_color: "primary",
       nivel_riesgo: "bajo",
+
       enviar_mensaje: true,
       texto: "",
       mensajes: [
@@ -163,7 +170,7 @@ export default {
         );
         this.scrollDown();
         this.ocultarResultado();
-        this.mostrarResultado(48);
+        this.mostrarResultado(Math.random() * 100);
       }, 1500);
     },
     ocultarResultado() {
@@ -181,6 +188,12 @@ export default {
           : cuestionario_diabetes > 33
           ? "medio"
           : "bajo";
+      this.cuestionario_color =
+        cuestionario_diabetes > 66
+          ? "red"
+          : cuestionario_diabetes > 33
+          ? "#ff9b00"
+          : "green";
       this.mostrarResultadoAnimacion(0, cuestionario_diabetes);
     },
     mostrarResultadoAnimacion(actual, limite) {
@@ -192,10 +205,10 @@ export default {
       } else {
         setTimeout(() => {
           this.mostrar_resultado_detalle = true;
-        }, 1000);
+        }, 800);
         setTimeout(() => {
           this.mostrar_resultado_detalle_2 = true;
-        }, 2500);
+        }, 1600);
       }
     },
     scrollDown() {
@@ -252,13 +265,15 @@ class Mensaje {
 }
 .chat-mensaje-0 {
   float: left;
-  background: #f9e5cc !important;
+  background: #fff !important;
 }
 .chat-mensaje-1 {
   float: right;
-  background: #afdaff !important;
+  color: #fff;
+  background: #3f8edc !important;
 }
 .chat-estadistica {
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

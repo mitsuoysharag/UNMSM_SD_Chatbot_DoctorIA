@@ -3,7 +3,7 @@
   <v-toolbar app>
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     <v-toolbar-title class=" text-uppercase">
-      <h3>DOCTOR IA</h3>
+      <h3>DOCTOR - IA</h3>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -20,7 +20,7 @@
           </v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title>Usuario Anónimo</v-list-tile-title>
+            <v-list-tile-title>{{usuario}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -46,6 +46,7 @@
 export default {
   data () {
       return {
+        usuario: 'Ricardo',
         drawer: null,
         items: [
           { title: 'Inicio', icon: 'home', redirect: 'inicio'},
