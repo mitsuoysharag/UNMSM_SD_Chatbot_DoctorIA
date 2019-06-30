@@ -5,7 +5,7 @@ git init
 git add .
 git commit -m 'deploy project'
 # git remote rm origin
-# git remote add origin https://github.com/mitsuoysharag/UNMSM_SD_Pilar_de_Descanso.git
+# git remote add origin https://github.com/mitsuoysharag/UNMSM_SD_Chatbot_DoctorIA.git
 # git pull origin master
 git push -u origin master
 
