@@ -1,6 +1,6 @@
 <template>
   <v-content class="chat-vista">
-    <Navegacion/>
+    <Navegacion />
     <v-container grid-list-xl style="height: 100%">
       <v-layout justify-center wrap style="height: 100%">
         <v-flex xs12 md6 style="height: 100%">
@@ -24,7 +24,7 @@
               </v-container>
               <div>
                 <v-form class="chat-botones" @submit.prevent="enviarMensaje">
-                  <v-text-field v-model="texto" class="mr-3"></v-text-field>
+                  <v-text-field v-model="consulta" class="mr-3"></v-text-field>
                   <v-btn
                     v-if="enviar_mensaje"
                     fab
@@ -71,12 +71,13 @@
                           Tu puntuación ha sido de
                           <strong>{{cuestionario_diabetes}}</strong>.
                         </span>
-                        <br>
+                        <br />
                         <span>
                           Usted tiene un
                           <strong
                             :style="{color: cuestionario_color}"
-                          >riesgo {{nivel_riesgo}}</strong> de desarrollar <strong>diabetes</strong>.
+                          >riesgo {{nivel_riesgo}}</strong> de desarrollar
+                          <strong>diabetes</strong>.
                         </span>
                         <v-divider class="mt-4 mb-3"></v-divider>
                       </div>
@@ -84,7 +85,10 @@
                   </div>
                   <v-scroll-x-transition>
                     <div v-if="mostrar_resultado_detalle_2" style="font-size: 13px">
-                      <p>Aún así, usted podría reducir su riesgo de desarrollar <strong>diabetes</strong>. Le damos las siguientes recomendaciones:</p>
+                      <p>
+                        Aún así, usted podría reducir su riesgo de desarrollar
+                        <strong>diabetes</strong>. Le damos las siguientes recomendaciones:
+                      </p>
                       <ul>
                         <li>
                           <p>Haga más actividad física. El ejercicio puede ayudarte a bajar de peso y bajar el azúcar en la sangre</p>
@@ -135,18 +139,15 @@ export default {
       nivel_riesgo: "bajo",
 
       enviar_mensaje: true,
-      texto: "",
       mensajes: [
-        new Mensaje(1, "Hola."),
-        new Mensaje(0, "Hola, en qué puedo ayudarte?"),
-        new Mensaje(
-          1,
-          "Tengo un problema, últimamente me duele mucho la espalda."
-        ),
-        new Mensaje(0, "¿Hace cuánto siente ese dolor?"),
-        new Mensaje(1, "Desde hace tres días."),
-        new Mensaje(0, "¿En qué zona específica te duele?")
-      ]
+        new Mensaje(0, "Soy tu Doctor-IA. Escríbeme algo. :)"),
+      ],
+
+      consulta: "",
+      contexto_previo: "",
+      cuestionario_index: 0,
+      cuestionario_activo: false,
+      cuestionario_diabetes: 0
     };
   },
   mounted() {
@@ -154,16 +155,46 @@ export default {
   },
   methods: {
     enviarMensaje() {
-      if (this.texto.trim().length != 0 && this.enviar_mensaje) {
+      if (this.consulta.trim().length != 0 && this.enviar_mensaje) {
         this.enviar_mensaje = false;
-        this.mensajes.push(new Mensaje(1, this.texto));
-        this.texto = "";
-        this.responderMensaje();
+        this.mensajes.push(new Mensaje(1, this.consulta));
+        let consulta = this.consulta;
+        this.consulta = "";
+        this.responderMensaje(consulta);
         this.scrollDown();
       }
     },
-    responderMensaje() {
-      setTimeout(() => {
+    responderMensaje(consulta) {
+      let data = {
+        consulta: consulta,
+        contexto_previo: this.contexto_previo,
+        cuestionario_index: this.cuestionario_index,
+        cuestionario_activo: this.cuestionario_activo,
+        cuestionario_diabetes: this.cuestionario_diabetes
+      };
+      console.log(data);
+      fetch("https://stchatbot.herokuapp.com/chatbot", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => res.json())
+        .catch(error => {
+          console.error("Error:", error);
+          this.enviar_mensaje = true;
+        })
+        .then(response => {
+          console.log("Success:", response);
+          this.enviar_mensaje = true;
+          this.mensajes.push(
+            new Mensaje(0, response.respuesta[0])
+          );
+          this.scrollDown();
+        });
+
+      /*setTimeout(() => {
         this.enviar_mensaje = true;
         this.mensajes.push(
           new Mensaje(0, "Esta información te puede ayudar: ...")
@@ -171,7 +202,7 @@ export default {
         this.scrollDown();
         this.ocultarResultado();
         this.mostrarResultado(Math.random() * 100);
-      }, 1500);
+      }, 1500);*/
     },
     ocultarResultado() {
       this.cuestionario_diabetes = 0;
