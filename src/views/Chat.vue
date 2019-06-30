@@ -59,17 +59,17 @@
                       :rotate="360"
                       :size="150"
                       :width="15"
-                      :value="cuestionario_diabetes"
+                      :value="cuestionario_diabetes_pc"
                       :color="cuestionario_color"
                       style="margin: 20px auto"
                     >
-                      <h1>{{ cuestionario_diabetes }}/100</h1>
+                      <h1>{{ cuestionario_diabetes_pc }}/100</h1>
                     </v-progress-circular>
                     <v-scroll-x-transition>
                       <div v-if="mostrar_resultado_detalle" class="text-xs-center">
                         <span>
                           Tu puntuación ha sido de
-                          <strong>{{cuestionario_diabetes}}</strong>.
+                          <strong>{{cuestionario_diabetes_pc}}</strong>.
                         </span>
                         <br />
                         <span>
@@ -133,15 +133,14 @@ export default {
       mostrar_resultado: false,
       mostrar_resultado_detalle: false,
       mostrar_resultado_detalle_2: false,
+      cuestionario_diabetes_pc: 0,
 
       cuestionario_diabetes: 0,
       cuestionario_color: "primary",
       nivel_riesgo: "bajo",
 
       enviar_mensaje: true,
-      mensajes: [
-        new Mensaje(0, "Soy tu Doctor-IA. Escríbeme algo. :)"),
-      ],
+      mensajes: [new Mensaje(0, "Soy tu Doctor-IA. Escríbeme algo. :)")],
 
       consulta: "",
       contexto_previo: "",
@@ -172,8 +171,9 @@ export default {
         cuestionario_activo: this.cuestionario_activo,
         cuestionario_diabetes: this.cuestionario_diabetes
       };
-      console.log(data);
-      fetch("https://stchatbot.herokuapp.com/chatbot", {
+      // console.log(data);
+      // fetch("https://stchatbot.herokuapp.com/chatbot", {
+      fetch("https://unmsm-sd-chatbot-doctoria.herokuapp.com/chatbot", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -188,39 +188,50 @@ export default {
         .then(response => {
           console.log("Success:", response);
           this.enviar_mensaje = true;
-          this.mensajes.push(
-            new Mensaje(0, response.respuesta[0])
-          );
+
+          this.contexto_previo = response.contexto_previo;
+          this.cuestionario_index = response.cuestionario_index;
+          this.cuestionario_activo = response.cuestionario_activo;
+          this.cuestionario_diabetes = response.cuestionario_diabetes;
+
+          let respuesta = Array.isArray(response.respuesta)
+            ? response.respuesta[
+                Math.floor(Math.random() * response.respuesta.length)
+              ]
+            : response.respuesta;
+          if (respuesta == "$fin_cuestionario") {
+            this.mensajes.push(
+              new Mensaje(0, "Te muestro los resultados de mi diagnóstico.")
+            );
+            this.ocultarResultado();
+            this.mostrarResultado(
+              this.cuestionario_diabetes,
+              this.cuestionario_index
+            );
+          } else {
+            this.mensajes.push(new Mensaje(0, respuesta));
+          }
           this.scrollDown();
-          // this.ocultarResultado();
-          // this.mostrarResultado(Math.random() * 100);
         });
     },
     ocultarResultado() {
-      this.cuestionario_diabetes = 0;
       this.nivel_riesgo = "";
       this.mostrar_resultado = false;
       this.mostrar_resultado_detalle = false;
       this.mostrar_resultado_detalle_2 = false;
     },
-    mostrarResultado(cuestionario_diabetes) {
+    mostrarResultado(valor, valor_max) {
+      let puntaje = (valor * 100) / valor_max;
       this.mostrar_resultado = true;
+
       this.nivel_riesgo =
-        cuestionario_diabetes > 66
-          ? "alto"
-          : cuestionario_diabetes > 33
-          ? "medio"
-          : "bajo";
+        puntaje > 66 ? "alto" : puntaje > 33 ? "medio" : "bajo";
       this.cuestionario_color =
-        cuestionario_diabetes > 66
-          ? "red"
-          : cuestionario_diabetes > 33
-          ? "#ff9b00"
-          : "green";
-      this.mostrarResultadoAnimacion(0, cuestionario_diabetes);
+        puntaje > 66 ? "red" : puntaje > 33 ? "#ff9b00" : "green";
+      this.mostrarResultadoAnimacion(0, puntaje);
     },
     mostrarResultadoAnimacion(actual, limite) {
-      this.cuestionario_diabetes = actual;
+      this.cuestionario_diabetes_pc = actual;
       if (actual < limite) {
         setTimeout(() => {
           this.mostrarResultadoAnimacion(actual + 1, limite);
