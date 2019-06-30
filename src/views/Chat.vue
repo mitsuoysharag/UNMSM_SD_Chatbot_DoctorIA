@@ -192,17 +192,9 @@ export default {
             new Mensaje(0, response.respuesta[0])
           );
           this.scrollDown();
+          // this.ocultarResultado();
+          // this.mostrarResultado(Math.random() * 100);
         });
-
-      /*setTimeout(() => {
-        this.enviar_mensaje = true;
-        this.mensajes.push(
-          new Mensaje(0, "Esta información te puede ayudar: ...")
-        );
-        this.scrollDown();
-        this.ocultarResultado();
-        this.mostrarResultado(Math.random() * 100);
-      }, 1500);*/
     },
     ocultarResultado() {
       this.cuestionario_diabetes = 0;
