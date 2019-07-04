@@ -83,7 +83,7 @@
                           <strong
                             :style="{color: cuestionario_color}"
                           >riesgo {{nivel_riesgo}}</strong> de desarrollar
-                          <strong>diabetes</strong>.
+                          <strong>diabetes tipo 2</strong>.
                         </span>
                         <v-divider class="mt-4 mb-3"></v-divider>
                       </div>
@@ -93,7 +93,7 @@
                     <div v-if="mostrar_resultado_detalle_2" style="font-size: 13px">
                       <p>
                         Aún así, usted podría reducir su riesgo de desarrollar
-                        <strong>diabetes</strong>. Le damos las siguientes recomendaciones:
+                        <strong>diabetes tipo 2</strong>. Le damos las siguientes recomendaciones:
                       </p>
                       <ul>
                         <li>
