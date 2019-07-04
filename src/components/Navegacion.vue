@@ -1,8 +1,8 @@
 <template>
 <div>
-  <v-toolbar app>
+  <v-toolbar app class="elevation-0" color="#fff">
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-    <v-toolbar-title class=" text-uppercase">
+    <v-toolbar-title class="text-uppercase" >
       <h3>DOCTOR - IA</h3>
     </v-toolbar-title>
     <v-spacer></v-spacer>
@@ -25,8 +25,7 @@
         </v-list-tile>
       </v-list>
 
-      <v-list class="pt-0" dense>
-        <v-divider></v-divider>
+      <v-list class="pl-2 pt-2" dense>
         <v-list-tile v-for="item in items" :key="item.title" v-ripple @click="redirect(item.redirect)">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -46,11 +45,11 @@
 export default {
   data () {
       return {
-        usuario: 'Ricardo',
+        usuario: 'Richard',
         drawer: null,
         items: [
           { title: 'Inicio', icon: 'home', redirect: 'inicio'},
-          { title: 'Formulario', icon: 'receipt', redirect: 'formulario'},
+          //{ title: 'Formulario', icon: 'receipt', redirect: 'formulario'},
           { title: 'Chat', icon: 'question_answer', redirect: 'chat'},
           { title: 'Cerrar Sesión', icon: 'exit_to_app', redirect: '/'}
         ]

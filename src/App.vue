@@ -12,4 +12,7 @@
 h2 {
   color: #4e4e4e
 }
+/*#app {
+  background-image: url("~@/assets/back.png");
+}*/
 </style>

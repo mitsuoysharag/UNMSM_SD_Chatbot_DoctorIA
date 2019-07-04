@@ -8,6 +8,12 @@
             <div class="chat-componente" style="height: 100%">
               <v-container id="chat-ventana">
                 <v-layout column>
+                  <img
+                    src="../assets/bot.png"
+                    width="60px"
+                    class="mt-2 mb-2"
+                    style="display: block; margin: 0 auto"
+                  />
                   <v-flex v-for="(mensaje, index) in mensajes" :key="index">
                     <v-card
                       v-ripple
@@ -140,7 +146,7 @@ export default {
       nivel_riesgo: "bajo",
 
       enviar_mensaje: true,
-      mensajes: [new Mensaje(0, "Soy tu Doctor-IA. Escríbeme algo. :)")],
+      mensajes: [new Mensaje(0, "Soy tu DoctorIA. Escríbeme algo.")],
 
       consulta: "",
       contexto_previo: "",
